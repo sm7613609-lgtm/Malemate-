@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaleMate - Dating & Meet</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #090909;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 22px;
+  text-align: center;
+  border-bottom: 1px solid #b58b35;
+}
+
+.logo {
+  color: #d6ad55;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.tagline {
+  color: #aaa;
+  margin-top: 7px;
+  font-size: 13px;
+}
+
+.container {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+h2 {
+  color: #d6ad55;
+  margin-bottom: 15px;
+}
+
+.card {
+  background: #171717;
+  border: 1px solid #9d792e;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  font-size: 75px;
+  margin: 15px;
+}
+
+.card h3 {
+  color: #e4bd65;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #bbb;
+  margin: 8px;
+}
+
+button {
+  background: linear-gradient(90deg,#a77b25,#e4c16a);
+  color: black;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 7px;
+}
+
+button:hover {
+  opacity: .85;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 9px 0;
+  border: 1px solid #9d792e;
+  border-radius: 8px;
+  background: #202020;
+  color: white;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: #181818;
+  padding: 15px 3px;
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid #a77b25;
+}
+
+nav button {
+  padding: 10px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+footer {
+  text-align: center;
+  color: #888;
+  padding: 25px;
+  font-size: 12px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">💛 MaleMate</div>
+  <div class="tagline">Meet People • Make Connections</div>
+</header>
+
+<div class="container">
+
+<section id="home">
+  <h2>Discover People</h2>
+
+  <div class="card">
+    <div class="avatar">👨</div>
+    <h3>Welcome to MaleMate</h3>
+    <p>Meet new people and build meaningful connections.</p>
+    <p>18+ Only</p>
+  </div>
+
+  <div class="card">
+    <div class="avatar">👩</div>
+    <h3>Priya, 25</h3>
+    <p>📍 Kolkata, India</p>
+    <p>Looking for friendship and meaningful connections.</p>
+    <button onclick="like('Priya')">❤️ Like</button>
+    <button onclick="alert('Profile details coming soon!')">View Profile</button>
+  </div>
+
+  <div class="card">
+    <div class="avatar">👨</div>
+    <h3>Rahul, 28</h3>
+    <p>📍 Howrah, India</p>
+    <p>Love travelling and meeting new people.</p>
+    <button onclick="like('Rahul')">❤️ Like</button>
+    <button onclick="alert('Profile details coming soon!')">View Profile</button>
+  </div>
+</section>
+
+<section id="profile" class="section hidden">
+  <h2>Create Your Profile</h2>
+
+  <input id="name" placeholder="Your Name">
+  <input id="age" type="number" placeholder="Your Age (18+)">
+
+  <select id="gender">
+    <option value="">Select Gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+
+  <input id="city" placeholder="Your City">
+  <textarea id="bio" placeholder="Write about yourself"></textarea>
+
+  <button onclick="saveProfile()">Save Profile</button>
+
+  <p id="profileResult"></p>
+</section>
+
+<section id="likes" class="section hidden">
+  <h2>Your Likes ❤️</h2>
+  <div id="likeList">No likes yet.</div>
+</section>
+
+<section id="chat" class="section hidden">
+  <h2>Messages 💬</h2>
+  <p>Chat feature will be available after connecting the backend.</p>
+</section>
+
+</div>
+
+<nav>
+  <button onclick="show('home')">🏠 Home</button>
+  <button onclick="show('likes')">❤️ Likes</button>
+  <button onclick="show('chat')">💬 Chat</button>
+  <button onclick="show('profile')">👤 Profile</button>
+</nav>
+
+<footer>
+  © 2026 MaleMate | All Rights Reserved
+  <br><br>
+  Must be 18 years or older.
+</footer>
+
+<script>
+let likes = [];
+
+function show(section) {
+  ['home','profile','likes','chat'].forEach(id => {
+    document.getElementById(id).classList.add('hidden');
+  });
+
+  document.getElementById(section).classList.remove('hidden');
+}
+
+function like(name) {
+  if (!likes.includes(name)) {
+    likes.push(name);
+  }
+
+  document.getElementById('likeList').innerText =
+    likes.join(', ');
+
+  alert('You liked ' + name + ' ❤️');
+}
+
+function saveProfile() {
+  let name = document.getElementById('name').value;
+  let age = Number(document.getElementById('age').value);
+  let gender = document.getElementById('gender').value;
+  let city = document.getElementById('city').value;
+
+  if (!name || !age || !gender || !city) {
+    alert('Please fill all required details.');
+    return;
+  }
+
+  if (age < 18) {
+    alert('MaleMate is only for adults aged 18+.');
+    return;
+  }
+
+  document.getElementById('profileResult').innerText =
+    'Welcome ' + name + '! Your profile is ready.';
+
+  localStorage.setItem('maleMateName', name);
+}
+</script>
+
+</body>
+      </html>
